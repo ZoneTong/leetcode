@@ -8,23 +8,19 @@ func longestValidParentheses(s string) int {
 		switch c {
 		case '(':
 			top++
-			prelen = append(prelen, curlen)
-			curlen = 0
+			prelen, curlen = append(prelen, curlen), 0
 		case ')':
 			if top > 0 {
 				curlen += 2
 				top--
-				for _, pre := range prelen[top:] {
-					curlen += pre
-				}
+				curlen += prelen[top]
 				prelen = prelen[:top]
 				if curlen > max {
 					max = curlen
 				}
 			} else {
-				top = 0
+				top, curlen = 0, 0
 				prelen = prelen[:0]
-				curlen = 0
 			}
 		}
 	}
